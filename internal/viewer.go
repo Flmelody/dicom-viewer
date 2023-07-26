@@ -4,8 +4,8 @@ import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/dialog"
+	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/storage"
-	"fyne.io/fyne/v2/widget"
 )
 
 type Viewer struct {
@@ -46,7 +46,7 @@ func SetupViewer(a fyne.App) *Viewer {
 			})),
 	))
 
-	split := container.NewHSplit(widget.NewLabel("Hello"), widget.NewLabel("World"))
+	split := container.NewHSplit(layout.NewSpacer(), layout.NewSpacer())
 	split.Offset = 0.25
 
 	w.SetContent(split)
