@@ -2,6 +2,7 @@ package internal
 
 import (
 	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/dialog"
 	"fyne.io/fyne/v2/layout"
@@ -9,15 +10,20 @@ import (
 )
 
 type Viewer struct {
-	win   fyne.Window
-	dicom *Dicom
+	win         fyne.Window
+	dicom       *Dicom
+	canvasImage *canvas.Image
 }
 
 func SetupViewer(a fyne.App) *Viewer {
 	w := a.NewWindow("dicom viewer")
+	dicom := NewDicom(false, nil, nil, 40, 400)
 
+	canvasImage := canvas.NewImageFromImage(dicom)
 	viewer := &Viewer{
-		win: w,
+		win:         w,
+		dicom:       dicom,
+		canvasImage: canvasImage,
 	}
 	w.SetMainMenu(fyne.NewMainMenu(
 		fyne.NewMenu("File",
