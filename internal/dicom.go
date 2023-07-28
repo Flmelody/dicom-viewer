@@ -64,18 +64,10 @@ func (d *Dicom) ColorModel() color.Model {
 }
 
 func (d *Dicom) Bounds() image.Rectangle {
-	if d.isEncapsulated {
-		img, err := d.encapsulatedFrame.GetImage()
-		if err != nil {
-
-		}
-		return img.Bounds()
-	}
-	if d.nativeFrame == nil {
+	if d.nativeFrame == nil || d.encapsulatedFrame == nil {
 		return image.Rectangle{}
 	}
-
-	return image.Rect(0, 0, d.nativeFrame.Cols, d.nativeFrame.Rows)
+	return image.Rect(0, 0, d.cols, d.rows)
 }
 
 func (d *Dicom) At(x, y int) color.Color {
