@@ -9,7 +9,8 @@ import (
 )
 
 type Viewer struct {
-	win fyne.Window
+	win   fyne.Window
+	dicom *Dicom
 }
 
 func SetupViewer(a fyne.App) *Viewer {
