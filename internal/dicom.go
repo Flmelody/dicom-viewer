@@ -15,11 +15,6 @@ type Dicom struct {
 	nativeFrame       *frame.NativeFrame
 	isEncapsulated    bool
 	encapsulatedFrame *frame.EncapsulatedFrame
-	dicomData         *DicomData
-}
-
-type DicomData struct {
-	Name string
 }
 
 func (d *Dicom) SetNativeFrame(nativeFrame *frame.NativeFrame) {
@@ -111,9 +106,9 @@ func NewDicom(isEncapsulated bool, nativeFrame *frame.NativeFrame, encapsulatedF
 }
 
 func NewNativeFrameDicom(frame *frame.NativeFrame, windowLevel, windowWidth int16) *Dicom {
-	return &Dicom{nativeFrame: frame, windowLevel: windowLevel, windowWidth: windowWidth, dicomData: &DicomData{}}
+	return &Dicom{nativeFrame: frame, windowLevel: windowLevel, windowWidth: windowWidth}
 }
 
 func NewEncapsulatedFrameDicom(frame *frame.EncapsulatedFrame, windowLevel, windowWidth int16) *Dicom {
-	return &Dicom{encapsulatedFrame: frame, isEncapsulated: true, windowLevel: windowLevel, windowWidth: windowWidth, dicomData: &DicomData{}}
+	return &Dicom{encapsulatedFrame: frame, isEncapsulated: true, windowLevel: windowLevel, windowWidth: windowWidth}
 }
