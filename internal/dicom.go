@@ -15,6 +15,11 @@ type Dicom struct {
 	nativeFrame       *frame.NativeFrame
 	isEncapsulated    bool
 	encapsulatedFrame *frame.EncapsulatedFrame
+	dicomData         *DicomData
+}
+
+type DicomData struct {
+	Name string
 }
 
 func (d *Dicom) SetNativeFrame(nativeFrame *frame.NativeFrame) {
@@ -64,7 +69,7 @@ func (d *Dicom) ColorModel() color.Model {
 }
 
 func (d *Dicom) Bounds() image.Rectangle {
-	if d.nativeFrame == nil || d.encapsulatedFrame == nil {
+	if d.nativeFrame == nil && d.encapsulatedFrame == nil {
 		return image.Rectangle{}
 	}
 	return image.Rect(0, 0, d.cols, d.rows)
@@ -106,9 +111,9 @@ func NewDicom(isEncapsulated bool, nativeFrame *frame.NativeFrame, encapsulatedF
 }
 
 func NewNativeFrameDicom(frame *frame.NativeFrame, windowLevel, windowWidth int16) *Dicom {
-	return &Dicom{nativeFrame: frame, windowLevel: windowLevel, windowWidth: windowWidth}
+	return &Dicom{nativeFrame: frame, windowLevel: windowLevel, windowWidth: windowWidth, dicomData: &DicomData{}}
 }
 
 func NewEncapsulatedFrameDicom(frame *frame.EncapsulatedFrame, windowLevel, windowWidth int16) *Dicom {
-	return &Dicom{encapsulatedFrame: frame, isEncapsulated: true, windowLevel: windowLevel, windowWidth: windowWidth}
+	return &Dicom{encapsulatedFrame: frame, isEncapsulated: true, windowLevel: windowLevel, windowWidth: windowWidth, dicomData: &DicomData{}}
 }
