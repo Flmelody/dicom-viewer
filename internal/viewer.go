@@ -95,9 +95,10 @@ func (viewer *Viewer) loadFile(path string) {
 				panic("No images found")
 			}
 			if frames[0].IsEncapsulated() {
-				return
+				viewer.dicom.SetEncapsulatedFrame(&frames[0].EncapsulatedData)
+			} else {
+				viewer.dicom.SetNativeFrame(&frames[0].NativeData)
 			}
-			viewer.dicom.SetNativeFrame(&frames[0].NativeData)
 			viewer.refreshCanvas(viewer.canvasImage)
 		} else if elem.Tag == tag.WindowCenter {
 			str := fmt.Sprintf("%v", elem.Value.GetValue().([]string)[0])
